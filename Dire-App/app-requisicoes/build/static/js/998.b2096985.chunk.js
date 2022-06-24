@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkapp_intro2=self.webpackChunkapp_intro2||[]).push([[998],{8998:function(n,e,i){i.r(e);i(2791);var r=i(184);e.default=function(){return(0,r.jsx)("div",{children:(0,r.jsx)("h1",{children:"Bem vindo"})})}}}]);
+//# sourceMappingURL=998.b2096985.chunk.js.map
