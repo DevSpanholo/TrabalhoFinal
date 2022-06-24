@@ -3,12 +3,16 @@ import React, { useState, useEffect, useRef } from "react";
 import AtividadeList from "./AtividadeList";
 import AtividadeForm from "./AtividadeForm";
 import AtividadeSrv from "./AtividadeSrv";
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 import { Toast } from "primereact/toast";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
-function AtividadeCon() {
+
+function AtividadeSrvCon() {
   const [atividades, setAtividades] = useState([]);
-  const initialState = { id: null, titulo: "", descricao: "", status: "", prazo: "", AgendaInicio: "", dataHoraTermino: ""};
+  const initialState = { id: null, titulo: "", descricao: "", status: "", prazo: "", agendaInicio: "", dataHoraTermino: ""};
   const [atividade, setAtividade] = useState(initialState);
   const [editando, setEditando] = useState(false);
   const toastRef = useRef();
@@ -22,7 +26,7 @@ function AtividadeCon() {
       setAtividades(response.data);
         toastRef.current.show({
           severity: "success",
-          summary: "Tipo Requisição Atualizados!",
+          summary: "Atividades Atualizadas!",
           life: 3000,
         });
       })
@@ -85,11 +89,14 @@ function AtividadeCon() {
     setEditando(false);
   };
 
-  const editar = () => {
+  const editar = (id) => {
+    setAtividade(
+      atividades.filter((atividade) => atividade._id === id)[0]
+    );
     setEditando(true);
   };
 
-  const excluir = () => {
+  const excluir = (_id) => {
     confirmDialog({
       message: "Confirma a exclusão?",
       header: "Confirmação",
@@ -97,12 +104,12 @@ function AtividadeCon() {
       acceptLabel: "Sim",
       rejectLabel: "Não",
       acceptClassName: "p-button-danger",
-      accept: () => excluirConfirm(),
+      accept: () => excluirConfirm(_id),
     });
   };
 
-  const excluirConfirm = () => {
-    AtividadeSrv.excluir(atividade._id)
+  const excluirConfirm = (_id) => {
+    AtividadeSrv.excluir(_id)
       .then((response) => {
         onClickAtualizar();
         toastRef.current.show({
@@ -152,4 +159,4 @@ function AtividadeCon() {
   }
 
 }
-export default AtividadeCon;
+export default AtividadeSrvCon;

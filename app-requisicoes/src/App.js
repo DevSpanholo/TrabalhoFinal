@@ -35,12 +35,12 @@ function App() {
       <Suspense fallback={<div>Carregando ...</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/atividade" element={<AtividadeCon />} />
           <Route path="/colaborador" element={<ColaboradorCon />} />
           <Route path="/solicitante" element={<SolicitanteCon />} />
           <Route path="/tipoRequisicao" element={<TipoRequisicaoCon />} />
           <Route path="/requisicao" element={<RequisicaoCon />} />
           <Route path="/andamento" element={<AndamentoCon />} />
+          <Route path="/atividade" element={<AtividadeCon />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

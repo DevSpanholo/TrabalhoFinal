@@ -15,14 +15,15 @@ const AtividadeList = (props) => {
 
   }
 
+  const formataAgenda = (obj) => {
+    console.log(obj)
+    return  Moment(obj.agendaInicio).format("DD/MM/YYYY HH:MM");
+  }
   const formataDateTermino = (obj) => {
     console.log(obj)
-    return  Moment(obj.dataHoraTermino).format("DD/MM/YYYY HH:MM");
+    return  Moment(obj.formataDateTermino).format("DD/MM/YYYY HH:MM");
   }
-  const formataAngendaInicio = (obj) => {
-    console.log(obj)
-    return  Moment(obj.angendaInicio).format("DD/MM/YYYY HH:MM");
-  }
+
 
   const header = (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -30,22 +31,22 @@ const AtividadeList = (props) => {
     </div>
   );
 
-  const footer = `Total de itens: ${props.andamentos ? props.andamentos.length : 0}`;
+  const footer = `Total de itens: ${props.atividades ? props.atividades.length : 0}`;
 
   return (
     <div className="App">
-      <h4 className='name-andamentos'>Listagem de Atividades</h4>
+      <h4 className='name-atividades'>Listagem de Atividades</h4>
      
-      <DataTable value={props.andamentos} paginator responsiveLayout="scroll" header={header} footer={footer}
+      <DataTable value={props.atividades} paginator responsiveLayout="scroll" header={header} footer={footer}
         paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
         currentPageReportTemplate="Mostrando de {first} até {last} de {totalRecords}"
         rows={5} rowsPerPageOptions={[5, 10, 20, 50]}
-        emptyMessage="Nenhuma ativade encontrada."
+        emptyMessage="Nenhuma atividade encontrada."
 
-        selectionMode="single" selection={props.andamento} 
-        onSelectionChange={e => props.setandamento(e.value)} dataKey="_id">
+        selectionMode="single" selection={props.atividade} 
+        onSelectionChange={e => props.setAtividade(e.value)} dataKey="_id">
 
-        <Column field="_id" header="ID" sortable></Column>
+        <Column field="_id" header="ID" sortable></Column>        
         <Column field="titulo" header="Título" sortable filter></Column>
         <Column field="descricao" header="Descrição" sortable filter></Column>
         <Column field="status" header="Status" sortable filter></Column>
@@ -54,11 +55,9 @@ const AtividadeList = (props) => {
             console.log(obj)
             return  Moment(obj.prazo).format("DD/MM/YYYY");
           }
-        } header="Prazo" sortable filter></Column>
-        <Column field="angendaInicio" body={formataAngendaInicio} header="Agenda de início" sortable filter></Column>
-        <Column field="dataHoraTermino" body={formataDateTermino} header="Data e Hora de Término" sortable filter></Column>
-        <Column field="status" header="Status" sortable filter></Column>
-        
+        } header="Prazo " sortable filter></Column>
+        <Column field="agendaInicio" body={formataAgenda} header="Agenda Início" sortable filter></Column>
+        <Column field="dataHoraTermino" body={formataDateTermino} header="Data e Hora Término" sortable filter></Column>
         <Column header="Operações" body={operacoesBodyTemplate}>
         </Column>
       </DataTable>
